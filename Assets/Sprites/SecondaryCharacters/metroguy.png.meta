@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      metroguy_0: -4959671955374460679
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

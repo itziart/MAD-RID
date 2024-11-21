@@ -104,11 +104,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 882
-        y: 399
+        y: 391
         width: 223
-        height: 678
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 686
+      alignment: 9
+      pivot: {x: 0.5, y: -0.05}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f276f76e15c0bcb4a8242f9fe13e3794
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      girwalk-2.png_0: -8261558219801988903
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
