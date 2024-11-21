@@ -1,23 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour 
+public class Inventory : MonoBehaviour
 {
-    public List<GameObject> items = new List<GameObject>();
+    public List<Item> items = new List<Item>(); // List to store collected items
 
-    public void AddItem(GameObject item)
+    public void AddItem(Item item)
     {
         items.Add(item);
-        Debug.Log($"Picked up: {item.name}");
+        Debug.Log($"Added {item.itemName} to inventory. Total items: {items.Count}");
     }
 
-    public bool HasItem(GameObject item)
+    public bool HasItem(string itemName)
     {
-        return items.Contains(item);
+        return items.Exists(i => i.itemName == itemName);
     }
 
-    public void RemoveItem(GameObject item)
+    public void RemoveItem(Item item)
     {
-        if (items.Contains(item)) items.Remove(item);
+        items.Remove(item);
+        Debug.Log($"Removed {item.itemName} from inventory. Total items: {items.Count}");
     }
 }

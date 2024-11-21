@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isMoving = false;  // Flag to ensure no overlapping movement
 
+    private Inventory inventory; // Reference to the player's inventory
+
     private void Start()
     {
         targetPosition = transform.position;
@@ -22,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
         // Get the Polygon Collider 2D component attached to the Tilemap
         polygonCollider = tilemap.GetComponent<PolygonCollider2D>();
         mainCamera = Camera.main; // Cache the main camera
+
+        inventory = GetComponent<Inventory>();  // Get the inventory component from the player object
 
         if (polygonCollider == null)
         {
@@ -31,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
         if (mainCamera == null)
         {
             Debug.LogError("Main Camera not found in the scene!");
+        }
+
+        if (inventory == null)
+        {
+            Debug.LogError("Inventory component not found on Player!");
         }
     }
 
@@ -67,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (hit.CompareTag("NPC"))
             {
-                Debug.Log($"NPC detected at: {worldPosition}");
                 npcCollider = hit;
                 return true; // Tile is blocked by an NPC
             }
@@ -111,6 +119,9 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
+            // Check if the new position has an item
+            CheckForItem(newGridPosition);
+
             // Get the world position for the new grid position (center of the tile)
             Vector3 targetWorldPosition = tilemap.GetCellCenterWorld(newGridPosition);
 
@@ -150,6 +161,9 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
+            // Check if the grid position is occupied by an item
+            CheckForItem(gridPosition);
+
             // Get the center of the cell
             Vector3 targetWorldPosition = tilemap.GetCellCenterWorld(gridPosition);
 
@@ -163,6 +177,31 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 Debug.LogWarning("Target position is outside bounds. No movement.");
+            }
+        }
+    }
+
+    private void CheckForItem(Vector3Int gridPosition)
+    {
+        Vector3 worldPosition = tilemap.GetCellCenterWorld(gridPosition);
+
+        // Use a small radius to check if there is an item on the tile
+        float detectionRadius = 0.4f;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(worldPosition, detectionRadius);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Item"))
+            {
+                Item item = hit.GetComponent<Item>();
+                if (item != null)
+                {
+                    // Add item to inventory and remove it from the world
+                    inventory.AddItem(item);
+                    item.Collect();
+                    Debug.Log($"Item collected: {item.itemName}");
+                }
             }
         }
     }
@@ -200,7 +239,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         bool isInside = polygonCollider.OverlapPoint(position);
-        Debug.Log($"Checking Position: {position} - Inside Collider: {isInside}");
         return isInside;
     }
 }
