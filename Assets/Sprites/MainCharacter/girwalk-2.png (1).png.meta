@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      girwalk-2.png (1)_0: 1951751116598683878
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
