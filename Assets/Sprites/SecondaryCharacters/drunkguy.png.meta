@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      drunkguy_0: -8143017736066133787
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
