@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      puking_0: 4842137754874424807
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

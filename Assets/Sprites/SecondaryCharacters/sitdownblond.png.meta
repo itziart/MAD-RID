@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sitdownblond_0: 5793986491839099096
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

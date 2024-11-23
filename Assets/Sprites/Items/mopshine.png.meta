@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      mopshine_0: -488057116276267878
+      mopshine_1: -9036066152468646353
+      mopshine_2: 2425094532592912224
+      mopshine_3: 1746976755982667122
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

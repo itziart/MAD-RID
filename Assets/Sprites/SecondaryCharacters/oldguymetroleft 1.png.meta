@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      oldguymetroleft 1_0: 474520904457594255
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
