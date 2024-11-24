@@ -1,48 +1,55 @@
 using UnityEngine;
-
 public class NPC : MonoBehaviour
 {
-    public string npcName = "NPC Name";              // Name of the NPC
-    public bool hasQuest = false;                   // Whether the NPC has a quest
-    public bool questCompleted = false;             // Whether the NPC's quest is completed
-    public string questItemRequired = "Key";        // Item required to complete the quest
-    public string questDialogue = "I need a key to open the door."; // Dialogue for the quest
-    public string questCompletedDialogue = "Thank you for completing my quest!"; // Dialogue after quest completion
+    public string npcName = "NPC Name";
+    public bool hasQuest = false;
+    public bool questCompleted = false;
+    public string questItemRequired = "Key";
+    public string questDialogue = "I need a key to open the door.";
+    public string questCompletedDialogue = "Thank you for completing my quest!";
+
+    private DialogManager dialogManager;
+
+    private void Start()
+    {
+        dialogManager = FindObjectOfType<DialogManager>(); // Find the dialog manager in the scene.
+    }
 
     public void Interact()
     {
+        if (dialogManager == null) return;
+
         if (hasQuest && !questCompleted)
         {
-            Debug.Log($"{npcName}: {questDialogue}");
-            // Optionally, trigger a UI dialog box to display questDialogue
+            dialogManager.ShowDialog($"{npcName}: {questDialogue}");
         }
         else if (questCompleted)
         {
-            Debug.Log($"{npcName}: {questCompletedDialogue}");
-            // Optionally, trigger a UI dialog box to display questCompletedDialogue
+            dialogManager.ShowDialog($"{npcName}: {questCompletedDialogue}");
         }
         else
         {
-            Debug.Log($"{npcName}: Hello there!");
+            dialogManager.ShowDialog($"{npcName}: Hello there!");
         }
     }
-
-    public void CompleteQuest(string itemGiven)
+    public bool TryCompleteQuest(ItemData item)
     {
-        if (!hasQuest)
+        if (questCompleted)
         {
-            Debug.Log($"{npcName}: I have no tasks for you.");
-            return;
+            Debug.Log($"{npcName}: Quest already completed.");
+            return false;
         }
 
-        if (itemGiven == questItemRequired)
+        if (item != null && item.itemName == questItemRequired)
         {
             questCompleted = true;
-            Debug.Log($"{npcName}: Thank you for bringing me the {questItemRequired}. Quest complete!");
+            Debug.Log($"{npcName}: {questCompletedDialogue}");
+            return true;
         }
-        else
-        {
-            Debug.Log($"{npcName}: This isn't the item I asked for.");
-        }
+
+        Debug.Log($"{npcName}: This is not the item I need.");
+        return false;
     }
+
+
 }

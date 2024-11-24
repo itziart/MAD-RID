@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
@@ -137,6 +138,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMouseClick()
     {
+        Debug.Log("HandleMouseClick called.");
+
+        // Ensure EventSystem exists
+        if (EventSystem.current == null)
+        {
+            Debug.LogWarning("No EventSystem found in the scene.");
+            return;
+        }
+
+
         if (Input.GetMouseButtonDown(0)) // Left-click
         {
             if (mainCamera == null)
@@ -197,14 +208,26 @@ public class PlayerMovement : MonoBehaviour
                 Item item = hit.GetComponent<Item>();
                 if (item != null)
                 {
-                    // Add item to inventory and remove it from the world
-                    inventory.AddItem(item);
-                    item.Collect();
-                    Debug.Log($"Item collected: {item.itemName}");
+                    if (item.itemData != null)
+                    {
+                        // Add item to inventory and remove it from the world
+                        inventory.AddItem(item.itemData);
+                        item.Collect();
+                        Debug.Log($"Item collected: {item.itemData.itemName}");
+                    }
+                    else
+                    {
+                        Debug.LogError($"Item '{hit.name}' is missing its ItemData. Ensure the prefab or instance has the correct setup.");
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"Collider with 'Item' tag does not have an Item component! Collider name: {hit.name}");
                 }
             }
         }
     }
+
 
     private void InteractWithNPC(Collider2D npcCollider)
     {
