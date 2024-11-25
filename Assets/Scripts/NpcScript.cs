@@ -1,10 +1,11 @@
 using UnityEngine;
+
 public class NPC : MonoBehaviour
 {
     public string npcName = "NPC Name";
     public bool hasQuest = false;
     public bool questCompleted = false;
-    public string questItemRequired = "Key";
+    public string questItemRequired = "Key"; // Name of the required item
     public string questDialogue = "I need a key to open the door.";
     public string questCompletedDialogue = "Thank you for completing my quest!";
 
@@ -32,6 +33,7 @@ public class NPC : MonoBehaviour
             dialogManager.ShowDialog($"{npcName}: Hello there!");
         }
     }
+
     public bool TryCompleteQuest(ItemData item)
     {
         if (questCompleted)
@@ -50,6 +52,4 @@ public class NPC : MonoBehaviour
         Debug.Log($"{npcName}: This is not the item I need.");
         return false;
     }
-
-
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NPC
   - Item
+  - NPCDropHitbox
   layers:
   - Default
   - TransparentFX
