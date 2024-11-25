@@ -110,18 +110,25 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement != Vector3Int.zero)
         {
-            // Calculate the new grid position with movement
+            // Calculate the new grid position
             Vector3Int newGridPosition = tilemap.WorldToCell(targetPosition) + movement;
 
-            // Check if the new position is occupied by an NPC
+            // Check if the new position has an item and collect it if present
+            CheckForItem(newGridPosition);
+
+            // Check for NPC
             if (IsTileBlockedByNPC(newGridPosition, out Collider2D npcCollider))
             {
-                InteractWithNPC(npcCollider); // Start interaction if blocked by NPC
-                return;
+                InteractWithNPC(npcCollider);
+                return; // Stop further processing if interacting with an NPC
             }
 
-            // Check if the new position has an item
-            CheckForItem(newGridPosition);
+            // Check for Non-Pickable Item
+            if (IsTileBlockedByItem(newGridPosition))
+            {
+                Debug.Log("Movement blocked by a non-pickable item.");
+                return; // Prevent movement onto the tile
+            }
 
             // Get the world position for the new grid position (center of the tile)
             Vector3 targetWorldPosition = tilemap.GetCellCenterWorld(newGridPosition);
@@ -135,6 +142,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
 
     private void HandleMouseClick()
     {
@@ -263,5 +271,27 @@ public class PlayerMovement : MonoBehaviour
 
         bool isInside = polygonCollider.OverlapPoint(position);
         return isInside;
+    }
+
+    private bool IsTileBlockedByItem(Vector3Int gridPosition)
+    {
+        Vector3 worldPosition = tilemap.GetCellCenterWorld(gridPosition);
+
+        // Define a small radius for detection
+        float detectionRadius = 0.4f;
+
+        // Use a LayerMask if non-pickable items are on a specific layer (optional)
+        LayerMask itemLayerMask = LayerMask.GetMask("Default"); // Adjust if needed
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(worldPosition, detectionRadius, itemLayerMask);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("NonPickableItem")) // Tag for non-pickable items
+            {
+                return true; // Tile is blocked by a non-pickable item
+            }
+        }
+        return false; // Tile is free of non-pickable items
     }
 }

@@ -1,31 +1,25 @@
 using UnityEngine;
 
-public class NpcDropHandler : MonoBehaviour
+public class NpcDropHandler : InteractableObject
 {
-    public NPC npc; // Reference to the NPC script on this GameObject
+    public NPC npc; // Reference to the associated NPC
 
-    // Method to handle the item being dropped on the NPC's drop hitbox
-    public bool TryDropItem(ItemData itemData)
+    public override bool Interact(ItemData itemData)
     {
-        // If the NPC is null or doesn't require an item, return false
         if (npc == null || itemData == null)
         {
-            Debug.Log("Invalid item or NPC reference.");
+            Debug.Log("Invalid NPC or item data.");
             return false;
         }
 
-        // Check if the dropped item is the one the NPC needs
-        bool questCompleted = npc.TryCompleteQuest(itemData);
-
-        if (questCompleted)
+        // Check if the item completes the NPC's quest
+        if (npc.TryCompleteQuest(itemData))
         {
-            Debug.Log("Quest completed with the dropped item.");
+            Debug.Log("Quest completed with the dropped item!");
             return true;
         }
-        else
-        {
-            Debug.Log("This is not the correct item for the NPC.");
-            return false;
-        }
+
+        Debug.Log("This item does not complete the NPC's quest.");
+        return false;
     }
 }

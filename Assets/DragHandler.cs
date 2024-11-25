@@ -51,45 +51,26 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     {
         Debug.Log($"End drag for item: {itemData?.itemName}");
 
-        // Check if the drop target is a valid drop hitbox or NPC
         Collider2D hit = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(eventData.position));
+
         if (hit != null)
         {
-            if (hit.CompareTag("NPCDropHitbox"))
+            // Attempt to interact with any InteractableObject
+            InteractableObject interactable = hit.GetComponent<InteractableObject>();
+            if (interactable != null)
             {
-                Debug.Log("Item dropped on DropHitbox.");
-                InteractWithDropHitbox(hit.GetComponent<NpcDropHandler>());
-            }
-            else
-            {
-                ReplaceItemInInventory();
+                if (interactable.Interact(itemData))
+                {
+                    Destroy(gameObject); // Destroy the dragged item after successful interaction
+                    return;
+                }
             }
         }
-        else
-        {
-            ReplaceItemInInventory();
-        }
+
+        // Return the item to inventory if no valid interaction occurred
+        ReplaceItemInInventory();
     }
 
-    private void InteractWithDropHitbox(NpcDropHandler dropHandler)
-    {
-        if (dropHandler != null && itemData != null)
-        {
-            if (dropHandler.TryDropItem(itemData))
-            {
-                Destroy(gameObject); // Destroy the dragged item after successful interaction
-            }
-            else
-            {
-                ReplaceItemInInventory(); // Return the item if the drop is invalid
-            }
-        }
-        else
-        {
-            Debug.Log("Invalid DropHitbox or missing item data.");
-            ReplaceItemInInventory();
-        }
-    }
 
 
     private void ReplaceItemInInventory()
