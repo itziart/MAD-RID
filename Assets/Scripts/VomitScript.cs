@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class Vomit : InteractableObject
 {
+    public NPC sitNPC;
     public override bool Interact(ItemData itemData)
     {
         if (itemData != null && itemData.itemName == "Mop")
         {
+            if (sitNPC != null) //If there was an NPC waiting for the vomit to be cleaned
+            {
+                sitNPC.questConditionSatisfied = true;
+            }
             Debug.Log("Cleaned up vomit with the mop!");
             if (transform.parent != null)
             {

@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (IsTileBlockedByNPC(newTile, out Collider2D npcCollider)) //If Tile is blocked by NPC
             {
-                InteractWithNPC(npcCollider); //Interact with NPC
+                InteractWithNPC(npcCollider); //Interact with NPC   
                 return;
             }
             if (IsTileAccessible(newTile))

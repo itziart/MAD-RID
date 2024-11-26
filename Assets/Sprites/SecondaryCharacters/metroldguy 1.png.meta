@@ -103,13 +103,13 @@ TextureImporter:
       name: metroldguy 1_0
       rect:
         serializedVersion: 2
-        x: 477
+        x: 471
         y: 392
-        width: 337
+        width: 153
         height: 316
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      alignment: 9
+      pivot: {x: 0.44769567, y: 0.5115372}
+      border: {x: 0, y: 0, z: 8, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 31d95025510c94c478cff74b1ef4f927
     internalID: 0
     vertices: []
     indices: 

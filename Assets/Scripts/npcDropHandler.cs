@@ -3,6 +3,7 @@ using UnityEngine;
 public class NpcDropHandler : InteractableObject
 {
     public NPC npc; // Reference to the associated NPC
+    public DialogManager dialogManager;
 
     public override bool Interact(ItemData itemData)
     {
@@ -19,7 +20,7 @@ public class NpcDropHandler : InteractableObject
             return true;
         }
 
-        Debug.Log("This item does not complete the NPC's quest.");
+        dialogManager.ShowDialog($"{npc.npcName}: Don't give me that!");
         return false;
     }
 }
