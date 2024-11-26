@@ -1522,6 +1522,91 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1885761754704041095, guid: 3ce941caea7e9dd4a92bfe59b7eed2a3, type: 3}
   m_PrefabInstance: {fileID: 344614608}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1601230042
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 359303706905217151, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_Name
+      value: NPC (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.080999725
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358823037895397891, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2830424538855482796, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: dialogManager
+      value: 
+      objectReference: {fileID: 254961503}
+    - target: {fileID: 5573667856813100614, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7533703938518868669, guid: e54e9ee13fa9d484b8113fec81e0219f, type: 3}
+    - target: {fileID: 6893718793287550540, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: hasQuest
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6893718793287550540, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: questDialogue
+      value: My back is hurting... I want to sit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6893718793287550540, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: questItemRequired
+      value: Chair
+      objectReference: {fileID: 0}
+    - target: {fileID: 6893718793287550540, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: questCompletedDialogue
+      value: Really?? There is a free sit?????
+      objectReference: {fileID: 0}
+    - target: {fileID: 6893718793287550540, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
+      propertyPath: questConditionSatisfied
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ceb4b27330a1434db83cfb20def5629, type: 3}
 --- !u!1 &1638246071
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,3 +2189,4 @@ SceneRoots:
   - {fileID: 593014937921789929}
   - {fileID: 7582146660033255702}
   - {fileID: 5133693460822773031}
+  - {fileID: 1601230042}
