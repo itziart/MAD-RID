@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8092559746847069249}
   - component: {fileID: 8871144973523451881}
   - component: {fileID: 2697771455890289643}
+  - component: {fileID: 5735659987943730635}
   m_Layer: 0
   m_Name: Mop
   m_TagString: Item
@@ -139,3 +140,16 @@ CapsuleCollider2D:
   m_Offset: {x: 0.06054364, y: -3.0169806}
   m_Size: {x: 1.608709, y: 2.0019932}
   m_Direction: 0
+--- !u!114 &5735659987943730635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945084906234432349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cfb0ddaeed15f24492f7d6f8e41c8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}

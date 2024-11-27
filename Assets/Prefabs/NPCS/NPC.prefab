@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6660437554875769454}
   - component: {fileID: 7780101226104939103}
   - component: {fileID: 6893718793287550540}
+  - component: {fileID: 9082157200177246}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -176,6 +177,19 @@ MonoBehaviour:
   questCompletedDialogue: Thank you for completing my quest!
   questEffectPrefab: {fileID: 0}
   effectSpawnLocation: {fileID: 0}
+--- !u!114 &9082157200177246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359303706905217151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cfb0ddaeed15f24492f7d6f8e41c8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
 --- !u!1 &1541117687899139254
 GameObject:
   m_ObjectHideFlags: 0

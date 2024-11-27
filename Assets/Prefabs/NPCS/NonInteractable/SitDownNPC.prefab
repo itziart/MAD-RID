@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 205671798884249860}
   - component: {fileID: 7698169064785177630}
   - component: {fileID: 1760148117858523387}
+  - component: {fileID: -702485273350212016}
   m_Layer: 0
   m_Name: SitDownNPC
   m_TagString: NPC
@@ -176,6 +177,19 @@ MonoBehaviour:
   questCompletedDialogue: Thank you for completing my quest!
   questEffectPrefab: {fileID: 0}
   effectSpawnLocation: {fileID: 0}
+--- !u!114 &-702485273350212016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110218880698691138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cfb0ddaeed15f24492f7d6f8e41c8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
 --- !u!1 &8398341471322242689
 GameObject:
   m_ObjectHideFlags: 0

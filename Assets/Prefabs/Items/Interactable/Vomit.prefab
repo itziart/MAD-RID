@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79820107ab778c2448270a201df8d54c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sitNPC: {fileID: 0}
 --- !u!1 &7128275042541693000
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +103,7 @@ GameObject:
   - component: {fileID: 2316291663229104917}
   - component: {fileID: 5895403228559090906}
   - component: {fileID: 4985081766329541215}
+  - component: {fileID: 6515836149175199769}
   m_Layer: 0
   m_Name: Vomit
   m_TagString: NonPickableItem
@@ -217,3 +219,16 @@ CapsuleCollider2D:
   m_Offset: {x: -0.04012283, y: -0.22513446}
   m_Size: {x: 0.3697543, y: 0.3697543}
   m_Direction: 0
+--- !u!114 &6515836149175199769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128275042541693000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cfb0ddaeed15f24492f7d6f8e41c8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
