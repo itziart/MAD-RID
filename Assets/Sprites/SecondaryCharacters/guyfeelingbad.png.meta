@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 56a873e08b04f8347ab66e7834775e52
+guid: 102fdad353acf4a449af3fb82dc63d31
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      guyfeelingbad_0: -2138485173894063686
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

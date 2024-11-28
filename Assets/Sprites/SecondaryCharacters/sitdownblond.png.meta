@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dd33dd8bc642f4948879b78ea5e294eb
+guid: fbddcf18ae2e2a744bedd007d1d68bcc
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sitdownblond_0: 5793986491839099096
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

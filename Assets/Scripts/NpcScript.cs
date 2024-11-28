@@ -2,47 +2,79 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public string npcName = "NPC Name";              // Name of the NPC
-    public bool hasQuest = false;                   // Whether the NPC has a quest
-    public bool questCompleted = false;             // Whether the NPC's quest is completed
-    public string questItemRequired = "Key";        // Item required to complete the quest
-    public string questDialogue = "I need a key to open the door."; // Dialogue for the quest
-    public string questCompletedDialogue = "Thank you for completing my quest!"; // Dialogue after quest completion
+    public string npcName = "NPC Name";
+    public bool hasQuest = false;
+    public bool questCompleted = false;
+    public bool questConditionSatisfied = false;
+    public string questItemRequired = "Key"; // Name of the required item
+    public string questDialogue = "I need a key to open the door.";
+    public string questCompletedDialogue = "Thank you for completing my quest!";
+
+    public GameObject questEffectPrefab; // Optional: Assign a prefab for the quest completion effect
+    public Transform effectSpawnLocation; // Optional: Where the effect appears (e.g., vomit position)
+
+    private DialogManager dialogManager;
+
+    private void Start()
+    {
+        dialogManager = FindObjectOfType<DialogManager>(); // Find the dialog manager in the scene.
+    }
 
     public void Interact()
     {
+        if (dialogManager == null) return;
+
         if (hasQuest && !questCompleted)
         {
-            Debug.Log($"{npcName}: {questDialogue}");
-            // Optionally, trigger a UI dialog box to display questDialogue
+            dialogManager.ShowDialog($"{npcName}: {questDialogue}");
+        }
+        else if (questConditionSatisfied)
+        {
+            questCompleted = true;
+            dialogManager.ShowDialog($"{npcName}: {questCompletedDialogue}");
         }
         else if (questCompleted)
         {
-            Debug.Log($"{npcName}: {questCompletedDialogue}");
-            // Optionally, trigger a UI dialog box to display questCompletedDialogue
+            dialogManager.ShowDialog($"{npcName}: {questCompletedDialogue}");
         }
         else
         {
-            Debug.Log($"{npcName}: Hello there!");
+            dialogManager.ShowDialog($"...: Get lost kid!");
         }
     }
 
-    public void CompleteQuest(string itemGiven)
+    public bool TryCompleteQuest(ItemData item)
     {
-        if (!hasQuest)
+        if (questCompleted)
         {
-            Debug.Log($"{npcName}: I have no tasks for you.");
-            return;
+            Debug.Log($"{npcName}: Quest already completed.");
+            return false;
         }
 
-        if (itemGiven == questItemRequired)
+        if (item != null && item.itemName == questItemRequired)
         {
             questCompleted = true;
-            Debug.Log($"{npcName}: Thank you for bringing me the {questItemRequired}. Quest complete!");
+            Debug.Log($"{npcName}: {questCompletedDialogue}");
+
+            // Trigger unique quest completion behavior
+            OnQuestComplete();
+
+            return true;
         }
-        else
+
+        Debug.Log($"{npcName}: This is not the item I need.");
+        return false;
+    }
+
+    // This method is virtual so it can be overridden in derived classes
+    protected virtual void OnQuestComplete()
+    {
+        // Default behavior: Spawn a quest effect, if assigned
+        if (questEffectPrefab != null && effectSpawnLocation != null)
         {
-            Debug.Log($"{npcName}: This isn't the item I asked for.");
+            Instantiate(questEffectPrefab, effectSpawnLocation.position, Quaternion.identity);
         }
+
+        Debug.Log($"{npcName}: Quest effect triggered.");
     }
 }

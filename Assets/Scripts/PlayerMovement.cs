@@ -1,19 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;  // Speed of movement
-    public Vector3 tileSize = new Vector3(3f, 1.5f, 1f);  // Tile size for grid-based movement
+    public float moveSpeed = 5f; // Speed of movement
+    public Vector3 tileSize = new Vector3(3f, 1.5f, 1f); // Tile size for grid-based movement
     public Vector3 cellGap = new Vector3(-0.2f, -0.1f, 0); // Cell gap (for finer adjustments)
 
-    public Tilemap tilemap;  // Reference to the Tilemap
-    private Vector3 targetPosition;  // Target position for movement
+    public Tilemap tilemap; // Reference to the Tilemap
+    private Vector3 targetPosition; // Target position for movement
+
+    private List<Vector3Int> currentPath = new List<Vector3Int>(); // List to store the current path for Click based movement
+
+    private Collider2D targetNPC = null; // The NPC the player is targeting for interaction
+
 
     private PolygonCollider2D polygonCollider; // Reference to the Polygon Collider 2D
     private Camera mainCamera; // Reference to the main camera
 
-    private bool isMoving = false;  // Flag to ensure no overlapping movement
+    private bool isMoving = false; // Flag to ensure no overlapping movement
 
     private Inventory inventory; // Reference to the player's inventory
 
@@ -25,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         polygonCollider = tilemap.GetComponent<PolygonCollider2D>();
         mainCamera = Camera.main; // Cache the main camera
 
-        inventory = GetComponent<Inventory>();  // Get the inventory component from the player object
+        inventory = GetComponent<Inventory>(); // Get the inventory component from the player object
 
         if (polygonCollider == null)
         {
@@ -58,36 +65,48 @@ public class PlayerMovement : MonoBehaviour
         MoveToTarget();
     }
 
-    private bool IsTileBlockedByNPC(Vector3Int gridPosition, out Collider2D npcCollider)
+    private bool IsTileAccessible(Vector3Int targetTile)
     {
-        Vector3 worldPosition = tilemap.GetCellCenterWorld(gridPosition);
+        Vector3 worldPosition = tilemap.GetCellCenterWorld(targetTile);
 
-        // Define a small radius for detection (adjust if needed)
-        float detectionRadius = 0.4f;
-
-        // Use a LayerMask to exclude the tilemap if necessary
-        LayerMask npcLayerMask = LayerMask.GetMask("Default"); // Adjust based on your NPC layer
-
-        // Perform the overlap circle check
-        Collider2D[] hits = Physics2D.OverlapCircleAll(worldPosition, detectionRadius, npcLayerMask);
-
-        // Loop through all detected colliders
-        foreach (Collider2D hit in hits)
+        // Check if the tile is within the bounds of the polygon collider
+        if (!IsWithinColliderBounds(worldPosition))
         {
-            if (hit.CompareTag("NPC"))
-            {
-                npcCollider = hit;
-                return true; // Tile is blocked by an NPC
-            }
+            Debug.Log("Tile is outside collider bounds.");
+            return false;
         }
 
-        npcCollider = null;
-        return false; // No NPC found
+        // Check for NPC 
+        if (IsTileBlockedByNPC(targetTile, out Collider2D npcCollider))
+        {
+            return false; // Tile is blocked by NPC
+        }
+
+        // Check for Non-Pickable Items
+        if (IsTileBlockedByItem(targetTile))
+        {
+            return false; // Tile is blocked by Non-Pickable Item
+        }
+
+        return true; // Tile is accessible
+    }
+
+
+    private bool IsWithinColliderBounds(Vector3 position)
+    {
+        if (polygonCollider == null)
+        {
+            Debug.LogError("PolygonCollider2D is missing!");
+            return false;
+        }
+
+        return polygonCollider.OverlapPoint(position);
     }
 
     private void HandleKeyboardInput()
     {
         Vector3Int movement = Vector3Int.zero;
+        Debug.Log("Keyboard input detected.");
 
         // Detect movement direction (one tile per key press)
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -109,27 +128,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement != Vector3Int.zero)
         {
-            // Calculate the new grid position with movement
-            Vector3Int newGridPosition = tilemap.WorldToCell(targetPosition) + movement;
+            Vector3Int currentTile = tilemap.WorldToCell(targetPosition);
+            Vector3Int newTile = currentTile + movement;
 
-            // Check if the new position is occupied by an NPC
-            if (IsTileBlockedByNPC(newGridPosition, out Collider2D npcCollider))
+            if (IsTileBlockedByNPC(newTile, out Collider2D npcCollider)) //If Tile is blocked by NPC
             {
-                InteractWithNPC(npcCollider); // Start interaction if blocked by NPC
+                InteractWithNPC(npcCollider); //Interact with NPC   
                 return;
             }
-
-            // Check if the new position has an item
-            CheckForItem(newGridPosition);
-
-            // Get the world position for the new grid position (center of the tile)
-            Vector3 targetWorldPosition = tilemap.GetCellCenterWorld(newGridPosition);
-
-            // Check if the target position is within the Polygon Collider 2D bounds
-            if (IsWithinColliderBounds(targetWorldPosition))
+            if (IsTileAccessible(newTile))
             {
-                // Move to the new target position and set the isMoving flag
-                targetPosition = targetWorldPosition;
+                targetPosition = tilemap.GetCellCenterWorld(newTile);
+                currentPath.Clear();
+                currentPath.Add(newTile);
                 isMoving = true;
             }
         }
@@ -145,51 +156,145 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
-            // Convert the mouse position to world space
             Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorldPosition.z = 0;  // Ensure it remains flat in 2D space
+            mouseWorldPosition.z = 0;
 
-            Debug.Log($"Mouse World Position: {mouseWorldPosition}");
-
-            // Convert world position to grid coordinates
             Vector3Int gridPosition = tilemap.WorldToCell(mouseWorldPosition);
+            Vector3Int currentTile = tilemap.WorldToCell(transform.position);
 
-            // Check if the grid position is occupied by an NPC
+            Debug.Log($"Mouse clicked at {mouseWorldPosition}, grid {gridPosition}.");
+
+            // Check if the clicked tile contains an NPC
             if (IsTileBlockedByNPC(gridPosition, out Collider2D npcCollider))
             {
-                InteractWithNPC(npcCollider); // Start interaction if blocked by NPC
+                // Save the target NPC
+                targetNPC = npcCollider;
+
+                if (IsAdjacentToPlayer(currentTile, gridPosition))
+                {
+                    InteractWithNPC(targetNPC);
+                    return;
+                }
+
+                // Find an accessible adjacent tile to move to
+                Vector3Int adjacentTile = FindAccessibleAdjacentTile(gridPosition, currentTile);
+
+                if (adjacentTile != Vector3Int.zero)
+                {
+                    Debug.Log($"Moving to adjacent tile {adjacentTile} to interact with NPC.");
+                    isMoving = true;
+                }
+                else
+                {
+                    Debug.LogWarning("No accessible adjacent tile to reach the NPC.");
+                }
+
                 return;
             }
 
-            // Check if the grid position is occupied by an item
-            CheckForItem(gridPosition);
-
-            // Get the center of the cell
-            Vector3 targetWorldPosition = tilemap.GetCellCenterWorld(gridPosition);
-
-            // Check if the target position is within collider bounds
-            if (IsWithinColliderBounds(targetWorldPosition))
+            // Normal movement if no NPC is clicked
+            if (IsTileAccessible(gridPosition) && IsPathAccessible(currentTile, gridPosition))
             {
-                targetPosition = targetWorldPosition;
+                Debug.Log($"Valid path found to {gridPosition}. Starting movement.");
+                targetNPC = null; // Clear any previously selected NPC
                 isMoving = true;
-                Debug.Log("Target position is within bounds. Moving to target.");
             }
             else
             {
-                Debug.LogWarning("Target position is outside bounds. No movement.");
+                Debug.LogWarning($"No valid path to tile {gridPosition}.");
             }
         }
+    }
+
+    private void MoveToTarget()
+    {
+        // Continue moving along the path if the player is in motion
+        if (isMoving && currentPath.Count > 0)
+        {
+            // Get the next tile's world position from the path
+            Vector3 nextTilePosition = tilemap.GetCellCenterWorld(currentPath[0]);
+
+            // Smoothly move the player toward the next tile
+            transform.position = Vector3.MoveTowards(transform.position, nextTilePosition, moveSpeed * Time.deltaTime);
+
+            // Check if the player has reached the target tile
+            if (Vector3.Distance(transform.position, nextTilePosition) < 0.01f)
+            {
+                // Snap the player to the center of the tile to avoid floating-point inaccuracies
+                transform.position = nextTilePosition;
+
+                // Remove the tile from the path as it's been reached
+                currentPath.RemoveAt(0);
+
+                // If there are no more tiles in the path
+                if (currentPath.Count == 0)
+                {
+                    isMoving = false;
+
+                    // Get the current grid position of the player
+                    Vector3Int currentTile = tilemap.WorldToCell(transform.position);
+
+                    // Log the player's stop action, showing the current tile position
+                    Debug.Log($"Player stopped at tile {currentTile}. Target NPC: {targetNPC?.name ?? "None"}");
+
+                    // If an NPC is targeted and the player is now adjacent, interact with the NPC
+                    if (targetNPC != null && IsAdjacentToNPC(currentTile, targetNPC))
+                    {
+                        InteractWithNPC(targetNPC);
+                        targetNPC = null; // Clear the NPC target after interaction
+                    }
+
+                    // Check for items to pick up on the current tile
+                    CheckForItem(currentTile);
+                }
+            }
+        }
+    }
+
+    private bool IsTileBlockedByNPC(Vector3Int gridPosition, out Collider2D npcCollider)
+    {
+        Vector3 worldPosition = tilemap.GetCellCenterWorld(gridPosition);
+        float detectionRadius = 0.4f;
+        LayerMask npcLayerMask = LayerMask.GetMask("Default");
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(worldPosition, detectionRadius, npcLayerMask);
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.CompareTag("NPC"))
+            {
+                npcCollider = hit;
+                return true;
+            }
+        }
+
+        npcCollider = null;
+        return false;
+    }
+
+    private bool IsTileBlockedByItem(Vector3Int gridPosition)
+    {
+        Vector3 worldPosition = tilemap.GetCellCenterWorld(gridPosition);
+        float detectionRadius = 0.4f;
+        LayerMask itemLayerMask = LayerMask.GetMask("Default");
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(worldPosition, detectionRadius, itemLayerMask);
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.CompareTag("NonPickableItem"))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void CheckForItem(Vector3Int gridPosition)
     {
         Vector3 worldPosition = tilemap.GetCellCenterWorld(gridPosition);
-
-        // Use a small radius to check if there is an item on the tile
         float detectionRadius = 0.4f;
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(worldPosition, detectionRadius);
-
         foreach (var hit in hits)
         {
             if (hit.CompareTag("Item"))
@@ -197,10 +302,16 @@ public class PlayerMovement : MonoBehaviour
                 Item item = hit.GetComponent<Item>();
                 if (item != null)
                 {
-                    // Add item to inventory and remove it from the world
-                    inventory.AddItem(item);
-                    item.Collect();
-                    Debug.Log($"Item collected: {item.itemName}");
+                    if (item.itemData != null)
+                    {
+                        inventory.AddItem(item.itemData);
+                        item.Collect();
+                        Debug.Log($"Item collected: {item.itemData.itemName}");
+                    }
+                    else
+                    {
+                        Debug.LogError($"Item '{hit.name}' is missing its ItemData.");
+                    }
                 }
             }
         }
@@ -211,34 +322,148 @@ public class PlayerMovement : MonoBehaviour
         NPC npc = npcCollider.GetComponent<NPC>();
         if (npc != null)
         {
-            npc.Interact(); // Trigger interaction with the NPC
+            npc.Interact();
+            Debug.Log("Interacted with NPC.");
         }
     }
 
-    private void MoveToTarget()
+    private bool IsPathAccessible(Vector3Int startTile, Vector3Int targetTile)
     {
-        // If the player is moving, move towards the target position
-        if (isMoving)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        Debug.Log($"Starting pathfinding from {startTile} to {targetTile}.");
 
-            // If the player reaches the target position, stop moving
-            if (transform.position == targetPosition)
+        currentPath.Clear(); // Clear any existing path
+        HashSet<Vector3Int> visited = new HashSet<Vector3Int>();
+        Queue<Vector3Int> queue = new Queue<Vector3Int>();
+        Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
+
+        queue.Enqueue(startTile);
+        visited.Add(startTile);
+        cameFrom[startTile] = startTile; // Start points to itself
+
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(0, 1, 0), // Up
+            new Vector3Int(0, -1, 0), // Down
+            new Vector3Int(-1, 0, 0), // Left
+            new Vector3Int(1, 0, 0) // Right
+        };
+
+        while (queue.Count > 0)
+        {
+            Vector3Int currentTile = queue.Dequeue();
+            Debug.Log($"Processing tile: {currentTile}");
+
+            if (currentTile == targetTile)
             {
-                isMoving = false;
+                Debug.Log($"Path found to target tile: {targetTile}");
+                ReconstructPath(cameFrom, targetTile);
+                return true;
+            }
+
+            foreach (Vector3Int direction in directions)
+            {
+                Vector3Int neighbor = currentTile + direction;
+
+                if (visited.Contains(neighbor) || !IsTileAccessible(neighbor))
+                {
+                    Debug.Log($"Skipping inaccessible or already visited tile: {neighbor}");
+                    continue;
+                }
+
+                visited.Add(neighbor);
+                queue.Enqueue(neighbor);
+                cameFrom[neighbor] = currentTile; // Record the path
             }
         }
+
+        Debug.LogWarning($"No path found from {startTile} to {targetTile}.");
+        return false;
     }
 
-    private bool IsWithinColliderBounds(Vector3 position)
+    private void ReconstructPath(Dictionary<Vector3Int, Vector3Int> cameFrom, Vector3Int targetTile)
     {
-        if (polygonCollider == null)
+        currentPath.Clear();
+        Vector3Int currentTile = targetTile;
+
+        while (cameFrom.ContainsKey(currentTile) && cameFrom[currentTile] != currentTile)
         {
-            Debug.LogError("PolygonCollider2D is missing!");
-            return false;
+            currentPath.Add(currentTile);
+            currentTile = cameFrom[currentTile];
         }
 
-        bool isInside = polygonCollider.OverlapPoint(position);
-        return isInside;
+        currentPath.Add(currentTile); // Add the starting tile
+        currentPath.Reverse(); // Reverse to get the path from start to target
+
+        Debug.Log($"Reconstructed path: {string.Join(" -> ", currentPath)}");
     }
+
+    private Vector3Int FindAccessibleAdjacentTile(Vector3Int npcTile, Vector3Int startTile)
+    {
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(0, 1, 0), // Up
+            new Vector3Int(0, -1, 0), // Down
+            new Vector3Int(-1, 0, 0), // Left
+            new Vector3Int(1, 0, 0) // Right
+        };
+
+        foreach (Vector3Int direction in directions)
+        {
+            Vector3Int adjacentTile = npcTile + direction;
+            if (IsTileAccessible(adjacentTile) && IsPathAccessible(startTile, adjacentTile))
+            {
+                return adjacentTile;
+            }
+        }
+
+        return Vector3Int.zero; // No accessible adjacent tile found
+    }
+
+    private bool IsAdjacentToNPC(Vector3Int playerTile, Collider2D npcCollider)
+    {
+        if (npcCollider == null) return false;
+
+        Vector3Int npcTile = tilemap.WorldToCell(npcCollider.transform.position);
+
+        // Check adjacency in all four cardinal directions
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(0, 1, 0), // Up
+            new Vector3Int(0, -1, 0), // Down
+            new Vector3Int(-1, 0, 0), // Left
+            new Vector3Int(1, 0, 0) // Right
+        };
+
+        foreach (Vector3Int direction in directions)
+        {
+            if (playerTile + direction == npcTile)
+            {
+                return true; // Player is adjacent to the NPC
+            }
+        }
+
+        return false;
+    }
+
+    private bool IsAdjacentToPlayer(Vector3Int playerTile, Vector3Int checkedTile)
+    {
+        Vector3Int[] directions = new Vector3Int[]
+        {
+            new Vector3Int(0, 1, 0), // Up
+            new Vector3Int(0, -1, 0), // Down
+            new Vector3Int(-1, 0, 0), // Left
+            new Vector3Int(1, 0, 0) // Right
+        };
+
+        foreach (Vector3Int direction in directions)
+        {
+            if (playerTile + direction == checkedTile)
+            {
+                return true; // Player is adjacent to the checked tile
+            }
+        }
+
+        return false;
+    }
+
 }
