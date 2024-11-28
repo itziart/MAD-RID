@@ -4,7 +4,7 @@ public class DrunkNPC : NPC
 {
     public GameObject vomitPrefab; // Vomit object to spawn
     public Transform vomitSpawnLocation; // Where vomit appears
-    public GameObject chair; // Reference to the chair GameObject
+    public ChairScript chair; // Reference to the chair GameObject
     public GameObject removedNPC; // Reference to the removed NPC GameObject
 
     protected override void OnQuestComplete()
@@ -21,12 +21,20 @@ public class DrunkNPC : NPC
         // Replace the chair with vomit
         if (vomitPrefab != null && vomitSpawnLocation != null)
         {
-            Instantiate(vomitPrefab, vomitSpawnLocation.position, Quaternion.identity);
-        }
+            // Instantiate the vomit object at the specified location
+            GameObject vomitInstance = Instantiate(vomitPrefab, vomitSpawnLocation.position, Quaternion.identity);
 
-        if (chair != null)
-        {
-            chair.SetActive(false); // Hide the chair (or replace with a new sprite)
+            // Assign the chair reference to the Vomit script
+            Vomit vomitScript = vomitInstance.GetComponent<Vomit>();
+            if (vomitScript != null && chair != null)
+            {
+                vomitScript.chair = chair; // Link the chair to the vomit
+                Debug.Log($"Assigned chair '{chair.name}' to vomit.");
+            }
+            else
+            {
+                Debug.LogWarning("Failed to assign chair to vomit. Ensure vomitPrefab has a Vomit script and a chair is assigned.");
+            }
         }
 
         Debug.Log("Drunk NPC completed quest and vomited.");

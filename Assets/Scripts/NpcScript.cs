@@ -74,7 +74,7 @@ public class NPC : MonoBehaviour
         {
             Instantiate(questEffectPrefab, effectSpawnLocation.position, Quaternion.identity);
         }
-
+        Destroy(gameObject);
         Debug.Log($"{npcName}: Quest effect triggered.");
     }
 }
