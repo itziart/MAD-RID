@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class Vomit : InteractableObject
 {
-    public NPC sitNPC;
+    public ChairScript chair;
     public override bool Interact(ItemData itemData)
     {
         if (itemData != null && itemData.itemName == "Mop")
         {
-            if (sitNPC != null) //If there was an NPC waiting for the vomit to be cleaned
+            if (chair != null)
             {
-                sitNPC.questConditionSatisfied = true;
+                chair.SetFree(true);
             }
+
             Debug.Log("Cleaned up vomit with the mop!");
             if (transform.parent != null)
             {
                 Destroy(transform.parent.gameObject); // Remove the parent GameObject from the scene
             }
+            
             else
             {
                 Debug.LogWarning("This object has no parent. Destroying the current object instead.");
