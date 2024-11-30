@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      shinesbutton_0: 4753172270014843978
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
