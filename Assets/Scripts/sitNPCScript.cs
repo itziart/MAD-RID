@@ -2,32 +2,75 @@ using UnityEngine;
 
 public class SitNPC : NPC
 {
-    private ChairScript[] chairs; // Array to store all chairs in the scene
+    private ChairScript[] chairs;
 
-    private void Start()
+    protected override void Start()
     {
-        // Find all ChairScript objects in the scene
-        chairs = FindObjectsOfType<ChairScript>();
+        base.Start();
+        RefreshChairList();
     }
 
-    protected override void OnQuestComplete()
+    public override void Interact()
     {
-        // Check if there is at least one free chair
-        ChairScript freeChair = FindFreeChair();
-        if (freeChair != null)
+        if (dialogManager == null)
         {
-            Debug.Log($"{npcName}: Found a free chair - {freeChair.name}. Completing quest!");
+            Debug.LogError("DialogManager is not assigned!");
+            return;
+        }
 
-            // Perform additional actions for completing the quest
-            base.OnQuestComplete();
+        if (npcData == null)
+        {
+            Debug.LogError("npcData is missing on " + gameObject.name);
+            return;
+        }
 
-            // Optional: Assign the NPC to sit in the free chair
-            SitInChair(freeChair);
+        if (hasQuest && !questCompleted)
+        {
+            if (!questActive)
+            {
+                dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questDialogue);
+                questActive = true;
+                return;
+            }
+            if (CheckQuestCondition())
+            {
+                questCompleted = true;
+                OnQuestComplete();
+                dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questCompletedDialogue);
+            }
+            else
+            {
+                dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questDialogue);
+            }
+        }
+        else if (questCompleted)
+        {
+            dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questCompletedDialogue);
         }
         else
         {
-            Debug.Log($"{npcName}: No free chairs found. Quest cannot be completed.");
+            dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.defaultDialogue);
         }
+    }
+
+
+    protected override bool CheckQuestCondition()
+    {
+        RefreshChairList();
+
+        ChairScript freeChair = FindFreeChair();
+        if (freeChair != null)
+        {
+            SitInChair(freeChair);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void RefreshChairList()
+    {
+        chairs = FindObjectsOfType<ChairScript>();
     }
 
     private ChairScript FindFreeChair()
@@ -36,22 +79,17 @@ public class SitNPC : NPC
         {
             if (chair.isFree)
             {
-                return chair; // Return the first free chair found
+                return chair;
             }
         }
 
-        return null; // No free chairs available
+        return null;
     }
 
     private void SitInChair(ChairScript chair)
     {
-        // Mark the chair as occupied
         chair.SetFree(false);
-
-        // Move the NPC to the chair's position
         transform.position = chair.transform.position;
-
-        // Optionally, play a sitting animation or adjust visuals here
-        Debug.Log($"{npcName} is now sitting on the chair: {chair.name}.");
+        Debug.Log($"{npcData.npcName} is now sitting on the chair: {chair.name}.");
     }
 }

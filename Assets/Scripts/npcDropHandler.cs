@@ -7,20 +7,36 @@ public class NpcDropHandler : InteractableObject
 
     public override bool Interact(ItemData itemData)
     {
-        if (npc == null || itemData == null)
+        if (npc == null || dialogManager == null)
         {
-            Debug.Log("Invalid NPC or item data.");
+            Debug.Log("NpcDropHandler: Invalid NPC or DialogManager reference.");
+            return false;
+        }
+
+        if (itemData == null)
+        {
+            Debug.Log("NpcDropHandler: No item data provided.");
+            ShowDialog("Don't give me that!");
             return false;
         }
 
         // Check if the item completes the NPC's quest
         if (npc.TryCompleteQuest(itemData))
         {
-            Debug.Log("Quest completed with the dropped item!");
+            Debug.Log($"NpcDropHandler: Quest completed with the item '{itemData.itemName}'!");
             return true;
         }
 
-        dialogManager.ShowDialog($"{npc.npcName}: Don't give me that!");
+        // Item doesn't complete the quest
+        ShowDialog("Don't give me that!");
         return false;
+    }
+
+    private void ShowDialog(string dialog)
+    {
+        if (dialogManager != null && npc != null)
+        {
+            dialogManager.ShowDialog(npc.npcData.npcPortrait, npc.npcData.npcName, dialog);
+        }
     }
 }

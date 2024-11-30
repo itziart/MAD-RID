@@ -1,45 +1,61 @@
+using System.Collections;
 using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public string npcName = "NPC Name";
+    public NPCData npcData; // Reference to the NPC's static data
     public bool hasQuest = false;
     public bool questCompleted = false;
     public bool questConditionSatisfied = false;
+    public bool questActive = false;
     public string questItemRequired = "Key"; // Name of the required item
-    public string questDialogue = "I need a key to open the door.";
-    public string questCompletedDialogue = "Thank you for completing my quest!";
 
     public GameObject questEffectPrefab; // Optional: Assign a prefab for the quest completion effect
     public Transform effectSpawnLocation; // Optional: Where the effect appears (e.g., vomit position)
+    public Transform newSpawnLocation; // Optional: Where the NPC moves after quest completion
 
-    private DialogManager dialogManager;
+    protected DialogManager dialogManager;
 
-    private void Start()
+    protected virtual void Start()
     {
         dialogManager = FindObjectOfType<DialogManager>(); // Find the dialog manager in the scene.
+
+        if (npcData == null)
+        {
+            Debug.LogError($"NPC {gameObject.name} is missing NPCData!");
+        }
     }
 
-    public void Interact()
+    public virtual void Interact()
     {
-        if (dialogManager == null) return;
+        if (dialogManager == null || npcData == null) return;
 
         if (hasQuest && !questCompleted)
         {
-            dialogManager.ShowDialog($"{npcName}: {questDialogue}");
-        }
-        else if (questConditionSatisfied)
-        {
-            questCompleted = true;
-            dialogManager.ShowDialog($"{npcName}: {questCompletedDialogue}");
+            if (!questActive)
+            {
+                dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questDialogue);
+                questActive = true;
+                return;
+            }
+            if (CheckQuestCondition())
+            {
+                questCompleted = true;
+                dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questCompletedDialogue);
+                OnQuestComplete();
+            }
+            else
+            {
+                dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questDialogue);
+            }
         }
         else if (questCompleted)
         {
-            dialogManager.ShowDialog($"{npcName}: {questCompletedDialogue}");
+            dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questCompletedDialogue);
         }
         else
         {
-            dialogManager.ShowDialog($"...: Get lost kid!");
+            dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.defaultDialogue);
         }
     }
 
@@ -47,34 +63,58 @@ public class NPC : MonoBehaviour
     {
         if (questCompleted)
         {
-            Debug.Log($"{npcName}: Quest already completed.");
+            Debug.Log($"{npcData.npcName}: Quest already completed.");
             return false;
         }
 
         if (item != null && item.itemName == questItemRequired)
         {
             questCompleted = true;
-            Debug.Log($"{npcName}: {questCompletedDialogue}");
+            Debug.Log($"{npcData.npcName}: {npcData.questCompletedDialogue}");
 
-            // Trigger unique quest completion behavior
             OnQuestComplete();
-
             return true;
         }
 
-        Debug.Log($"{npcName}: This is not the item I need.");
+        Debug.Log($"{npcData.npcName}: This is not the item I need.");
         return false;
     }
 
-    // This method is virtual so it can be overridden in derived classes
     protected virtual void OnQuestComplete()
     {
-        // Default behavior: Spawn a quest effect, if assigned
+        StartCoroutine(HandleQuestCompletion());
+    }
+
+    private IEnumerator HandleQuestCompletion()
+    {
+        // Show quest effect if any
         if (questEffectPrefab != null && effectSpawnLocation != null)
         {
             Instantiate(questEffectPrefab, effectSpawnLocation.position, Quaternion.identity);
         }
-        Destroy(gameObject);
-        Debug.Log($"{npcName}: Quest effect triggered.");
+
+        // Start fade-out
+        dialogManager.StartFadeOut();
+        yield return new WaitForSeconds(dialogManager.fadeDuration);
+
+        // Move or remove NPC
+        if (newSpawnLocation != null)
+        {
+            transform.position = newSpawnLocation.position; // Move NPC to new location
+            Debug.Log($"{npcData.npcName} moved to new location.");
+        }
+        else
+        {
+            Destroy(gameObject); // Remove NPC from the scene
+            Debug.Log($"{npcData.npcName} has been removed from the scene.");
+        }
+
+        // Start fade-in
+        dialogManager.StartFadeIn();
+    }
+
+    protected virtual bool CheckQuestCondition()
+    {
+        return false; // Default implementation, overridden in subclasses
     }
 }

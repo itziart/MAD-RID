@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: db32fe97af6ccee44a02ea6ce9f712d9
+guid: 878364b8fedd61045bf014e7d66d566a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2932971626054911752
-    second: CHAIR_0
+      213: 7950252839524074327
+    second: d00rsnowall_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CHAIR_0
+      name: d00rsnowall_0
       rect:
         serializedVersion: 2
-        x: 457
-        y: 477
-        width: 235
-        height: 290
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 109
+        y: 174
+        width: 967
+        height: 942
+      alignment: 9
+      pivot: {x: 0.4761, y: 0.2831569}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8078d43872204b820800000000000000
-      internalID: 2932971626054911752
+      spriteID: 7538f56d5d8f45e60800000000000000
+      internalID: 7950252839524074327
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8e3d5fd327c9958418f9b6fdd06a256c
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CHAIR_0: 2932971626054911752
+      d00rsnowall_0: 7950252839524074327
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

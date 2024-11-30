@@ -28,6 +28,6 @@ public class TilemapPositionSorting : MonoBehaviour
         Vector3Int gridPosition = tilemap.WorldToCell(transform.position);
 
         // Calculate sorting order: Lower X first, then lower Y
-        spriteRenderer.sortingOrder = gridPosition.y - gridPosition.x*1000;
+        spriteRenderer.sortingOrder = -gridPosition.y - gridPosition.x*1000;
     }
 }
