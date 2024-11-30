@@ -822,6 +822,10 @@ PrefabInstance:
       propertyPath: npcPrefab
       value: 
       objectReference: {fileID: 4359925152074596088, guid: 879297c7f3e3b0a42b32fba2846e56fe, type: 3}
+    - target: {fileID: 2028524341408118798, guid: 044914b46645d0643b0e32d1c0953b65, type: 3}
+      propertyPath: isFinalQuest
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2239277037835633341, guid: 044914b46645d0643b0e32d1c0953b65, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.46
@@ -922,6 +926,14 @@ PrefabInstance:
     - target: {fileID: 3652353069573133650, guid: 185446fa17d47d8488ae3982c3cf781a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013986036736224446, guid: 185446fa17d47d8488ae3982c3cf781a, type: 3}
+      propertyPath: endDialog
+      value: Do they really all have to stand in the exit?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013986036736224446, guid: 185446fa17d47d8488ae3982c3cf781a, type: 3}
+      propertyPath: startDialog
+      value: COME ON... JUST LET ME GO GUYS...
       objectReference: {fileID: 0}
     - target: {fileID: 8013986036736224446, guid: 185446fa17d47d8488ae3982c3cf781a, type: 3}
       propertyPath: dialogManager
@@ -3545,11 +3557,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1630813115494788355, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 896
       objectReference: {fileID: 0}
     - target: {fileID: 1630813115494788355, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 340
       objectReference: {fileID: 0}
     - target: {fileID: 4755194002658109234, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
       propertyPath: m_Pivot.x
@@ -3630,6 +3642,10 @@ PrefabInstance:
     - target: {fileID: 4755194002658109234, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774034616085922418, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
+      propertyPath: m_text
+      value: PRESS "E" OR MOVE TO PASS THE DIALOG
       objectReference: {fileID: 0}
     - target: {fileID: 6097879910227720152, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
       propertyPath: m_Name

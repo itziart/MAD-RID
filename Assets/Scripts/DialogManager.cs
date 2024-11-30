@@ -18,13 +18,12 @@ public class DialogManager : MonoBehaviour
 
     private void Start()
     {
-        //dialogPanel.SetActive(false);
         screenFadeImage.gameObject.SetActive(false); // Hide the fade initially
     }
 
     public void ShowDialog(Sprite npcPortrait, string npcName, string dialog)
     {
-        Debug.Log($"Showing dialog for {npcName}");
+
         portraitImage.sprite = npcPortrait;
         nameText.text = npcName;
         dialogText.text = dialog;
@@ -42,6 +41,7 @@ public class DialogManager : MonoBehaviour
             HideDialog();
         }
     }
+
 
     public void HideDialog()
     {

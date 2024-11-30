@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement; // For scene management
 using UnityEngine.UI; // For UI button handling
 
-public class StartScreenManager : MonoBehaviour
+public class WelcomeScreenManager : MonoBehaviour
 {
     // References to the buttons
     public Button startLevelButton;
@@ -24,28 +24,28 @@ public class StartScreenManager : MonoBehaviour
 
         if (levelsChoiceButton != null)
         {
-            // levelsChoiceButton.onClick.AddListener(GoToLevelsChoice);
+            levelsChoiceButton.onClick.AddListener(GoToLevelsChoice);
         }
     }
 
     // Method to go to the first level
     private void GoToFirstLevel()
     {
-        // Load the first level scene 
-        SceneManager.LoadScene("TutorialLevel");
+        // Load the first level scene (replace with your actual level name)
+        SceneManager.LoadScene("FirstLevel");
     }
 
-    //Method to go to the credits scene
-    public void GoToCredits()
+    // Method to go to the credits scene
+    private void GoToCredits()
     {
-        // Load the credits scene 
-        SceneManager.LoadScene("CreditsScreen");
+        // Load the credits scene (replace with your actual credits scene name)
+        SceneManager.LoadScene("StartScreen");
     }
 
     // Method to go to the levels choice screen
     private void GoToLevelsChoice()
     {
-        // Load the levels choice screen
+        // Load the levels choice screen (replace with your actual levels choice scene name)
         SceneManager.LoadScene("LevelsChoice");
     }
 }

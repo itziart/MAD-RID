@@ -51,6 +51,7 @@ public class SitNPC : NPC
             {
                 questCompleted = true;
                 OnQuestComplete();
+                levelManager.TriggerEndLevelDialogs();
                 dialogManager.ShowDialog(npcData.npcPortrait, npcData.npcName, npcData.questCompletedDialogue);
             }
             else
