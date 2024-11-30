@@ -106,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
     private void HandleKeyboardInput()
     {
         Vector3Int movement = Vector3Int.zero;
-        Debug.Log("Keyboard input detected.");
 
         // Detect movement direction (one tile per key press)
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -181,7 +180,6 @@ public class PlayerMovement : MonoBehaviour
 
                 if (adjacentTile != Vector3Int.zero)
                 {
-                    Debug.Log($"Moving to adjacent tile {adjacentTile} to interact with NPC.");
                     isMoving = true;
                 }
                 else

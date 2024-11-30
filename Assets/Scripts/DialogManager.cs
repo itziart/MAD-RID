@@ -18,12 +18,13 @@ public class DialogManager : MonoBehaviour
 
     private void Start()
     {
-        // dialogPanel.SetActive(false);
+        //dialogPanel.SetActive(false);
         screenFadeImage.gameObject.SetActive(false); // Hide the fade initially
     }
 
     public void ShowDialog(Sprite npcPortrait, string npcName, string dialog)
     {
+        Debug.Log($"Showing dialog for {npcName}");
         portraitImage.sprite = npcPortrait;
         nameText.text = npcName;
         dialogText.text = dialog;
@@ -35,8 +36,9 @@ public class DialogManager : MonoBehaviour
 
     private void Update()
     {
-        if (isDialogActive && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
-        {
+        if (isDialogActive && (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)))
+        {   
+            Debug.Log("Dialog closed");
             HideDialog();
         }
     }
@@ -45,6 +47,7 @@ public class DialogManager : MonoBehaviour
     {
         dialogPanel.SetActive(false);
         isDialogActive = false;
+        Debug.Log("Dialog hidden");
     }
 
     public bool IsDialogActive()
