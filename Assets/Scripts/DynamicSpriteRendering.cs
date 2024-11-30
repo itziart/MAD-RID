@@ -31,7 +31,7 @@ public class TilemapPositionSorting : MonoBehaviour
         if (customSortingOrder == 0)
         {
             // Calculate sorting order: Lower X first, then lower Y
-            spriteRenderer.sortingOrder = -gridPosition.y - gridPosition.x * 1000;
+            spriteRenderer.sortingOrder = -gridPosition.y * 2 - gridPosition.x * 1000;
         }
 
         else

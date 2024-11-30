@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6aa80158868548438518b32c6413439, type: 3}
+  m_Name: NewNPCData
+  m_EditorClassIdentifier: 
+  npcName: Drunk Punk
+  npcPortrait: {fileID: -2592664817922542755, guid: cfcc37bdff1271446a9f88c34f2e803a, type: 3}
+  questDialogue: Sheesh... I drank too much... Could you find me some water?
+  questCompletedDialogue: Thats... Not... Water...
+  defaultDialogue: Get lost kid...

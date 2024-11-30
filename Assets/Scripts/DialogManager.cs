@@ -14,7 +14,7 @@ public class DialogManager : MonoBehaviour
     public float fadeDuration = 1f; // How long the fade lasts
 
     public bool isDialogActive = false;
-    
+
 
     private void Start()
     {
@@ -31,9 +31,11 @@ public class DialogManager : MonoBehaviour
         isDialogActive = true;
     }
 
+
+
     private void Update()
     {
-        if (isDialogActive && (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)))
+        if (isDialogActive && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
         {
             HideDialog();
         }
