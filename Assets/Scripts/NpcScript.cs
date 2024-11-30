@@ -8,6 +8,7 @@ public class NPC : MonoBehaviour
     public bool questCompleted = false;
     public bool questConditionSatisfied = false;
     public bool questActive = false;
+    public bool isFinalQuest = false;
     public string questItemRequired = "Key"; // Name of the required item
 
     public GameObject questEffectPrefab; // Optional: Assign a prefab for the quest completion effect
@@ -15,10 +16,13 @@ public class NPC : MonoBehaviour
     public Transform newSpawnLocation; // Optional: Where the NPC moves after quest completion
 
     protected DialogManager dialogManager;
+    protected LevelManager levelManager;
+    
 
     protected virtual void Start()
     {
         dialogManager = FindObjectOfType<DialogManager>(); // Find the dialog manager in the scene.
+        levelManager = FindObjectOfType<LevelManager>();
 
         if (npcData == null)
         {
@@ -85,7 +89,7 @@ public class NPC : MonoBehaviour
         StartCoroutine(HandleQuestCompletion());
     }
 
-    private IEnumerator HandleQuestCompletion()
+    protected virtual IEnumerator HandleQuestCompletion()
     {
         // Show quest effect if any
         if (questEffectPrefab != null && effectSpawnLocation != null)
@@ -97,21 +101,18 @@ public class NPC : MonoBehaviour
         dialogManager.StartFadeOut();
         yield return new WaitForSeconds(dialogManager.fadeDuration);
 
-        // Move or remove NPC
-        if (newSpawnLocation != null)
+        // Default behavior: destroy the NPC if not overridden
+        Destroy(gameObject);
+        Debug.Log($"{npcData.npcName} has been removed from the scene.");
+        dialogManager.StartFadeIn();
+
+        if (isFinalQuest)
         {
-            transform.position = newSpawnLocation.position; // Move NPC to new location
-            Debug.Log($"{npcData.npcName} moved to new location.");
-        }
-        else
-        {
-            Destroy(gameObject); // Remove NPC from the scene
-            Debug.Log($"{npcData.npcName} has been removed from the scene.");
+            levelManager.TriggerEndLevelDialogs();
         }
 
-        // Start fade-in
-        dialogManager.StartFadeIn();
     }
+
 
     protected virtual bool CheckQuestCondition()
     {

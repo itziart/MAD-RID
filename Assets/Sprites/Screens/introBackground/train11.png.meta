@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 72724ffd0b3f721448b16caa14f2684b
+guid: ed3ca4ef649e9494b88fdfc8c0307a48
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2994014515652830493
-    second: old_logo_0
+      213: -3308071654361515237
+    second: train11_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: old_logo_0
+      name: train11_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 281
-        height: 281
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3ea562639af1376d0800000000000000
-      internalID: -2994014515652830493
+      spriteID: b1b3e367b5e5712d0800000000000000
+      internalID: -3308071654361515237
       vertices: []
       indices: 
       edges: []

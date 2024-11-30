@@ -6,6 +6,7 @@ public class TilemapPositionSorting : MonoBehaviour
 {
     private Tilemap tilemap; // Reference to the tilemap
     private SpriteRenderer spriteRenderer;
+    public int customSortingOrder = 0; 
 
     private void Awake()
     {
@@ -27,7 +28,22 @@ public class TilemapPositionSorting : MonoBehaviour
         // Get the grid position of the object
         Vector3Int gridPosition = tilemap.WorldToCell(transform.position);
 
-        // Calculate sorting order: Lower X first, then lower Y
-        spriteRenderer.sortingOrder = -gridPosition.y - gridPosition.x*1000;
+        if (customSortingOrder == 0)
+        {
+            // Calculate sorting order: Lower X first, then lower Y
+            spriteRenderer.sortingOrder = -gridPosition.y - gridPosition.x * 1000;
+        }
+
+        else
+        {
+            spriteRenderer.sortingOrder = customSortingOrder;
+        }
+        
+    }
+
+    // Expose sorting order for other objects to use
+    public int GetSortingOrder()
+    {
+        return spriteRenderer.sortingOrder;
     }
 }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cfcc37bdff1271446a9f88c34f2e803a
+guid: 0cb8c55422fe81e40b46d772b571718c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2592664817922542755
-    second: drunk_logo_0
+      213: 8551305318726997282
+    second: playerPortrait_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: drunk_logo_0
+      name: playerPortrait_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 280
-        height: 281
+        x: 411
+        y: 394
+        width: 250
+        height: 250
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d53f21aa511050cd0800000000000000
-      internalID: -2592664817922542755
+      spriteID: 22591a071e65ca670800000000000000
+      internalID: 8551305318726997282
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4fd9abca5499d4f459d76aa62bbc06e3
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      playerPortrait_0: 8551305318726997282
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
