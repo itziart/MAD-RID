@@ -103,12 +103,12 @@ TextureImporter:
       name: windowinbetween_0
       rect:
         serializedVersion: 2
-        x: 107
+        x: 109
         y: 175
         width: 969
         height: 944
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.47519523, y: 0.2818}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2827aec0b45ff0245a7585c09449e2e9
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      windowinbetween_0: -862192674319437505
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
