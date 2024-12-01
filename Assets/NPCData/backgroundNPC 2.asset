@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6aa80158868548438518b32c6413439, type: 3}
-  m_Name: backgroundNPC
+  m_Name: backgroundNPC 2
   m_EditorClassIdentifier: 
   npcName: ...
-  npcPortrait: {fileID: 840542036173066152, guid: c9882e23642b18748a57e3c3d20e96d0, type: 3}
+  npcPortrait: {fileID: 1199244927117595349, guid: 0471b094c1e1efa4f8707a72ac658653, type: 3}
   questDialogue: 
   questCompletedDialogue: 
   defaultDialogue: You better mind your own business...

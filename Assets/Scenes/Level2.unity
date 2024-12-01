@@ -227,6 +227,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2613311636749637674, guid: 87aa38b38045426459d00e051426ff35, type: 3}
+      propertyPath: npcData
+      value: 
+      objectReference: {fileID: 11400000, guid: a432e34239bb2354bb93929ad642f92f, type: 2}
     - target: {fileID: 3137589333554512570, guid: 87aa38b38045426459d00e051426ff35, type: 3}
       propertyPath: customSortingOrder
       value: 3021
@@ -818,6 +822,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2119453422}
     m_Modifications:
+    - target: {fileID: 2028524341408118798, guid: 044914b46645d0643b0e32d1c0953b65, type: 3}
+      propertyPath: npcData
+      value: 
+      objectReference: {fileID: 11400000, guid: 67d48cdfcaa259c40ad09143348636eb, type: 2}
     - target: {fileID: 2028524341408118798, guid: 044914b46645d0643b0e32d1c0953b65, type: 3}
       propertyPath: npcPrefab
       value: 
@@ -1548,52 +1556,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdd242fee39493f4197f10e2192bf2e0, type: 3}
---- !u!1 &625783482
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 625783484}
-  - component: {fileID: 625783483}
-  m_Layer: 0
-  m_Name: FadeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &625783483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 625783482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ff9610b03761fc42aad985ca8ad34ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  screenFadeImage: {fileID: 2018243132}
-  fadeDuration: 1
---- !u!4 &625783484
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 625783482}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &644630799 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6778607259453724312, guid: 87aa38b38045426459d00e051426ff35, type: 3}
@@ -1862,7 +1824,7 @@ PrefabInstance:
     - target: {fileID: 8051384660857985703, guid: d2d80f6577a234741ab13928aecacf80, type: 3}
       propertyPath: fadeManager
       value: 
-      objectReference: {fileID: 625783483}
+      objectReference: {fileID: 0}
     - target: {fileID: 8051384660857985703, guid: d2d80f6577a234741ab13928aecacf80, type: 3}
       propertyPath: fadeDuration
       value: 2
@@ -1911,6 +1873,10 @@ PrefabInstance:
       propertyPath: customSortingOrder
       value: 3012
       objectReference: {fileID: 0}
+    - target: {fileID: 1760148117858523387, guid: cdd242fee39493f4197f10e2192bf2e0, type: 3}
+      propertyPath: npcData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e31341f88bd41046898a2c774456165, type: 2}
     - target: {fileID: 6110218880698691138, guid: cdd242fee39493f4197f10e2192bf2e0, type: 3}
       propertyPath: m_Name
       value: SitDownNPC (2)
@@ -4126,6 +4092,10 @@ PrefabInstance:
       propertyPath: customSortingOrder
       value: 3011
       objectReference: {fileID: 0}
+    - target: {fileID: 903271407066511501, guid: f1e87bb5813add54aba187e4e84b5970, type: 3}
+      propertyPath: npcData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b0d175d5a3747640a0fb3f7eff7daa7, type: 2}
     - target: {fileID: 3103674140342488703, guid: f1e87bb5813add54aba187e4e84b5970, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.1
@@ -4223,6 +4193,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2613311636749637674, guid: 87aa38b38045426459d00e051426ff35, type: 3}
+      propertyPath: npcData
+      value: 
+      objectReference: {fileID: 11400000, guid: a432e34239bb2354bb93929ad642f92f, type: 2}
     - target: {fileID: 3137589333554512570, guid: 87aa38b38045426459d00e051426ff35, type: 3}
       propertyPath: customSortingOrder
       value: 3022
@@ -4249,4 +4223,3 @@ SceneRoots:
   - {fileID: 350531141}
   - {fileID: 1397968688}
   - {fileID: 2108015671830722897}
-  - {fileID: 625783484}

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6aa80158868548438518b32c6413439, type: 3}
-  m_Name: backgroundNPC
+  m_Name: DrunkGuy
   m_EditorClassIdentifier: 
-  npcName: ...
-  npcPortrait: {fileID: 840542036173066152, guid: c9882e23642b18748a57e3c3d20e96d0, type: 3}
-  questDialogue: 
-  questCompletedDialogue: 
-  defaultDialogue: You better mind your own business...
+  npcName: Drunk Punk
+  npcPortrait: {fileID: -2592664817922542755, guid: cfcc37bdff1271446a9f88c34f2e803a, type: 3}
+  questDialogue: Sheesh... I drank too much... Could you find me some water?
+  questCompletedDialogue: Thats... Not... Water...
+  defaultDialogue: She... blocked... me...

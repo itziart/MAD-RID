@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6aa80158868548438518b32c6413439, type: 3}
-  m_Name: backgroundNPC
+  m_Name: OldGuySit
   m_EditorClassIdentifier: 
-  npcName: ...
-  npcPortrait: {fileID: 840542036173066152, guid: c9882e23642b18748a57e3c3d20e96d0, type: 3}
-  questDialogue: 
-  questCompletedDialogue: 
-  defaultDialogue: You better mind your own business...
+  npcName: OldGuy
+  npcPortrait: {fileID: -2994014515652830493, guid: 72724ffd0b3f721448b16caa14f2684b, type: 3}
+  questDialogue: Listen kid... You'll understand me once you get older... My back
+    is killing me... I need a place to sit!
+  questCompletedDialogue: Hell yeah! You found a sit? I hope it is still free...
+  defaultDialogue: Get lost kid...

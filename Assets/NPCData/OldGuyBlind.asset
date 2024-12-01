@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6aa80158868548438518b32c6413439, type: 3}
+  m_Name: OldGuyBlind
+  m_EditorClassIdentifier: 
+  npcName: OldGuy
+  npcPortrait: {fileID: -2994014515652830493, guid: 72724ffd0b3f721448b16caa14f2684b, type: 3}
+  questDialogue: Listen kid... You'll understand me once you get older... My back
+    is killing me... I need a place to sit!
+  questCompletedDialogue: Really!? The train is almost empty?? I knew I need some
+    glasses.
+  defaultDialogue: Get lost kid...

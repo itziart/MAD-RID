@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Metro Fan #1
   npcPortrait: {fileID: -4320295261928297051, guid: 17fe23e097b9fb248869babfa10afb16, type: 3}
-  questDialogue: 
-  questCompletedDialogue: apple
-  defaultDialogue: fuck off
+  questDialogue: Hey kid... I am starving... Find me some food and I'll let you go...
+  questCompletedDialogue: Really!? An apple? I guess that will have to do...
+  defaultDialogue: Did you get lost?
