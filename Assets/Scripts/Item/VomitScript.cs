@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Vomit : InteractableObject
 {
+    private Animator animator;
     public ChairScript chair;
     public override bool Interact(ItemData itemData)
     {
@@ -15,7 +16,9 @@ public class Vomit : InteractableObject
             Debug.Log("Cleaned up vomit with the mop!");
             if (transform.parent != null)
             {
-                Destroy(transform.parent.gameObject); // Remove the parent GameObject from the scene
+                animator = GetComponentInParent<Animator>();
+                animator.SetTrigger("TRMopAnimation");
+                //Destroy(transform.parent.gameObject); // Remove the parent GameObject from the scene
             }
             
             else

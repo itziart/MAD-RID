@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79820107ab778c2448270a201df8d54c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sitNPC: {fileID: 0}
+  chair: {fileID: 0}
 --- !u!1 &7128275042541693000
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 5895403228559090906}
   - component: {fileID: 4985081766329541215}
   - component: {fileID: 6515836149175199769}
+  - component: {fileID: 4995713790406452676}
   m_Layer: 0
   m_Name: Vomit
   m_TagString: NonPickableItem
@@ -231,4 +232,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cfb0ddaeed15f24492f7d6f8e41c8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
+  customSortingOrder: 0
+--- !u!95 &4995713790406452676
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128275042541693000}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a26c8e9f5c13b3489d3ba4d0219471d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
