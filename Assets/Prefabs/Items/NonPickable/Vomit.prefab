@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 4985081766329541215}
   - component: {fileID: 6515836149175199769}
   - component: {fileID: 4995713790406452676}
+  - component: {fileID: 8577160622872341302}
   m_Layer: 0
   m_Name: Vomit
   m_TagString: NonPickableItem
@@ -255,3 +256,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8577160622872341302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128275042541693000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebfe976daa469fc4bb1d1267cc49a973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

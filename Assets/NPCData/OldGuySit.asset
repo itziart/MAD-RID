@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6aa80158868548438518b32c6413439, type: 3}
   m_Name: OldGuySit
   m_EditorClassIdentifier: 
-  npcName: OldGuy
+  npcName: NapOLDeon
   npcPortrait: {fileID: -2994014515652830493, guid: 72724ffd0b3f721448b16caa14f2684b, type: 3}
   questDialogue: Listen kid... You'll understand me once you get older... My back
     is killing me... I need a place to sit!

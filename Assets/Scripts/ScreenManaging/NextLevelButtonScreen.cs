@@ -23,7 +23,7 @@ public class ButtonActionHandler : MonoBehaviour
 
     private void OnButtonClick()
     {
-        // Change the Button Sprite
+        // Change the Button Sprite to the Glowing one
         if (newButtonSprite != null)
         {
             button.image.sprite = newButtonSprite;
@@ -35,7 +35,7 @@ public class ButtonActionHandler : MonoBehaviour
             Animator animator = animationObject.GetComponent<Animator>();
             if (animator != null)
             {
-                animator.SetTrigger("TRStartAnimation"); // Replace with your animation name
+                animator.SetTrigger("TRStartAnimation"); // Trigger the animation
             }
         }
 

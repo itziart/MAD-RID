@@ -4,7 +4,7 @@ using UnityEngine.UI; // Required for Image
 public class ItemUI : MonoBehaviour
 {
     public Image icon; // The UI Image component to display the item's icon
-    private ItemData itemData;
+    private ItemData itemData; // item data (item Name and icon)
 
     public void Initialize(ItemData data)
     {

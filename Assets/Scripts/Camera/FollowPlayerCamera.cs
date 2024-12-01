@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+
+    // Script for a Camera that follows the Players position during the Gameplay
+
+
     public Transform player;            // Reference to the player's transform
     public float smoothSpeed = 0.125f;  // Smoothness of camera movement (lower is smoother)
     public Vector3 offset;             // Offset to maintain distance from the player
@@ -11,7 +15,7 @@ public class CameraFollow : MonoBehaviour
         // Ensure that the player is assigned
         if (player == null)
         {
-            // Debug.LogError("Player reference not assigned in CameraFollow script!");
+            Debug.LogError("Player reference not assigned in CameraFollow script!");
             return;
         }
 
@@ -20,9 +24,6 @@ public class CameraFollow : MonoBehaviour
         {
             offset = transform.position - player.position;
         }
-
-        // Log the initial offset for debugging purposes
-        // Debug.Log("Initial Camera Offset: " + offset);
     }
 
     private void LateUpdate()
@@ -41,7 +42,5 @@ public class CameraFollow : MonoBehaviour
         // Set the camera's position (only adjusting X, Y, and keeping Z constant)
         transform.position = new Vector3(smoothPosition.x, smoothPosition.y, -10f);
 
-        // Optional: Debugging to check the camera position
-        // Debug.Log("Camera Position: " + transform.position);
     }
 }
