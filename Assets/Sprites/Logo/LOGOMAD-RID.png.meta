@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LOGOMAD-RID_0: -955706781413557638
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
