@@ -38,7 +38,7 @@ public class LevelScreenManager : MonoBehaviour
     private void GoToFirstLevel()
     {
         // Load the first level scene 
-        SceneManager.LoadScene("TutorialLevel");
+        SceneManager.LoadScene("Level1");
     }
 
     //Method to go to the credits scene

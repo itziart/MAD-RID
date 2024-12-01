@@ -77,12 +77,19 @@ public class NPC : MonoBehaviour
             Debug.Log($"{npcData.npcName}: {npcData.questCompletedDialogue}");
 
             OnQuestComplete();
+
+            if (isFinalQuest)
+            {
+                levelManager.TriggerEndLevelDialogs(); // No immediate issue now
+            }
+
             return true;
         }
 
         Debug.Log($"{npcData.npcName}: This is not the item I need.");
         return false;
     }
+
 
     protected virtual void OnQuestComplete()
     {
@@ -105,11 +112,9 @@ public class NPC : MonoBehaviour
         Destroy(gameObject);
         Debug.Log($"{npcData.npcName} has been removed from the scene.");
         dialogManager.StartFadeIn();
+        Debug.Log("Fade-in started.");
 
-        if (isFinalQuest)
-        {
-            levelManager.TriggerEndLevelDialogs();
-        }
+    
 
     }
 

@@ -45,6 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
-  startDialog: Did this guy really have to throw up right by the doors? I'll better
-    take the other exit...
-  endDialog: Those NPCs are nuts i swear to god... they are nuts!
+  playerPortrait: {fileID: 8551305318726997282, guid: 0cb8c55422fe81e40b46d772b571718c, type: 3}

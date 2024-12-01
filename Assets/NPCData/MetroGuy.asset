@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Metro Fan #1
   npcPortrait: {fileID: -4320295261928297051, guid: 17fe23e097b9fb248869babfa10afb16, type: 3}
-  questDialogue: apppple
+  questDialogue: 
   questCompletedDialogue: apple
   defaultDialogue: fuck off
