@@ -4,21 +4,37 @@ using UnityEngine;
 public class DrunkNPC : NPC
 {
     public Sprite vomitingSprite;      // Sprite to display when the NPC is vomiting
-    public GameObject vomitPrefab;    // Vomit object to spawn
+    public Sprite vomitingPortrait;    // Portrait to display when the NPC is vomiting
+    public GameObject vomitPrefab;     // Vomit object to spawn
     public Transform vomitSpawnLocation; // Where vomit appears
-    public ChairScript chair;         // Reference to the chair GameObject
-    public GameObject removedNPC;     // Reference to the removed NPC GameObject
-    public int vomitSortingIndex;     // Sorting index of the vomit object
+    public ChairScript chair;          // Reference to the chair GameObject
+    public GameObject removedNPC;      // Reference to the removed NPC GameObject
+    public int vomitSortingIndex;      // Sorting index of the vomit object
     private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer
+
+    private Sprite originalPortrait;   // Store the original portrait to avoid overwriting it
+    public AudioSource soundFX;        // Reference to the sound effect
+
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Save the original portrait at the start to restore later if needed
+        if (npcData != null)
+        {
+            originalPortrait = npcData.npcPortrait;
+        }
     }
 
+    // This function gets called when the player completes the quest
     protected override void OnQuestComplete()
     {
-        base.OnQuestComplete(); // Optionally call base behavior (e.g., play effects)
+        // Temporarily set the vomiting portrait for the NPC
+        if (vomitingPortrait != null)
+        {
+            npcData.npcPortrait = vomitingPortrait;
+        }
 
         // Change the NPC's sprite to the vomiting sprite
         if (vomitingSprite != null && spriteRenderer != null)
@@ -26,34 +42,29 @@ public class DrunkNPC : NPC
             spriteRenderer.sprite = vomitingSprite;
         }
 
-        // Start fade-out and handle quest completion visuals
+        // Start the fade-out and handle the quest completion visuals
         dialogManager.StartFadeOut();
-        dialogManager.StartCoroutine(HandleVomitAfterFade());
+        dialogManager.StartCoroutine(HandleQuestCompletionAndVomit());
     }
 
-    private IEnumerator HandleVomitAfterFade()
+    private IEnumerator HandleQuestCompletionAndVomit()
     {
+        soundFX.Play();
         // Wait for the fade-out to complete
         yield return new WaitForSeconds(dialogManager.fadeDuration);
 
-        // If there was a selected NPC to remove (e.g., due to throwing up)
+        // Remove the NPC if needed (e.g., if they vomit and should be removed)
         if (removedNPC != null)
         {
             Destroy(removedNPC);
         }
 
-        // Change the NPC's sprite to the vomiting sprite
-        if (vomitingSprite != null && spriteRenderer != null)
-        {
-            spriteRenderer.sprite = vomitingSprite;
-        }
-
-        // Replace the chair with vomit
+        // Spawn vomit at the chair location
         if (vomitPrefab != null && vomitSpawnLocation != null)
         {
             Vector3 chairOffset = new Vector3(-0.8795f + 0.85f, 0.5978f, 0f);
             // Instantiate the vomit object at the specified location
-            GameObject vomitInstance = Instantiate(vomitPrefab, vomitSpawnLocation.position+chairOffset, Quaternion.identity);
+            GameObject vomitInstance = Instantiate(vomitPrefab, vomitSpawnLocation.position + chairOffset, Quaternion.identity);
 
             // Find the Vomit script in the child GameObject "DropHitbox"
             Transform dropHitboxTransform = vomitInstance.transform.Find("DropHitbox");
@@ -67,7 +78,7 @@ public class DrunkNPC : NPC
                 {
                     vomiPositionSorting.customSortingOrder = vomitSortingIndex;
                     vomitScript.chair = chair; // Link the chair to the vomit
-                    
+
                     Debug.Log($"Assigned chair '{chair.name}' to vomit.");
                 }
                 else
@@ -83,8 +94,22 @@ public class DrunkNPC : NPC
 
         Debug.Log("Drunk NPC completed quest and vomited.");
 
+        // Display the "Quest Completed" dialog
+        dialogManager.ShowPlayerDialog("Disgusting... But somehow worked...");
+
+        // Restore the original portrait after the quest is complete
+        RestoreOriginalPortrait();
+
         // Start the fade-in process
         dialogManager.StartFadeIn();
     }
 
+    private void RestoreOriginalPortrait()
+    {
+        // Restore the original portrait back to the NPC data
+        if (npcData != null && originalPortrait != null)
+        {
+            npcData.npcPortrait = originalPortrait;
+        }
+    }
 }
