@@ -24,28 +24,29 @@ public class StartScreenManager : MonoBehaviour
 
         if (levelsChoiceButton != null)
         {
-            // levelsChoiceButton.onClick.AddListener(GoToLevelsChoice);
+            levelsChoiceButton.onClick.AddListener(GoToLevelsChoice);
         }
     }
 
     // Method to go to the first level
     private void GoToFirstLevel()
     {
-        // Load the first level scene 
-        SceneManager.LoadScene("TutorialLevel");
+        // Load the first level scene (replace with your actual level name)
+        SceneManager.LoadScene("Level1");
     }
 
     //Method to go to the credits scene
     public void GoToCredits()
     {
-        // Load the credits scene 
+        // Load the credits scene (replace with your actual credits scene name)
+        Debug.Log($"Go to creditssaa");
         SceneManager.LoadScene("CreditsScreen");
     }
 
     // Method to go to the levels choice screen
     private void GoToLevelsChoice()
     {
-        // Load the levels choice screen
-        SceneManager.LoadScene("LevelsChoice");
+        // Load the levels choice screen (replace with your actual levels choice scene name)
+        SceneManager.LoadScene("LevelsScreen");
     }
 }

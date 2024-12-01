@@ -201,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.LogWarning($"No valid path to tile {gridPosition}.");
             }
+
         }
     }
 
@@ -211,9 +212,10 @@ public class PlayerMovement : MonoBehaviour
         {
             // Get the next tile's world position from the path
             Vector3 nextTilePosition = tilemap.GetCellCenterWorld(currentPath[0]);
-
+            targetPosition = nextTilePosition;
             // Smoothly move the player toward the next tile
             transform.position = Vector3.MoveTowards(transform.position, nextTilePosition, moveSpeed * Time.deltaTime);
+
 
             // Check if the player has reached the target tile
             if (Vector3.Distance(transform.position, nextTilePosition) < 0.01f)

@@ -6,7 +6,7 @@ public class IntroSceneManager : MonoBehaviour
     // Function to change scene after animation finishes
     public void ChangeScene()
     {
-        // Load the Start Screen Scene (change the scene name as needed)
+        // Load the Start Screen Scene
         SceneManager.LoadScene("StartScreen");
     }
 }
