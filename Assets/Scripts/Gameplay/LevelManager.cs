@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class LevelManager : MonoBehaviour
     [Header("Player Dialog Configuration")]
     public string startDialog = "Did this dude really have to throw up right by the doors?! I should go to the other exit...";
     public string endDialog = "People are so weird... I am done with this madness...";
+    public Button menuButton;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         TriggerStartLevelDialogs();
+        menuButton.onClick.AddListener(GoToMenu);
     }
 
     public void TriggerStartLevelDialogs()

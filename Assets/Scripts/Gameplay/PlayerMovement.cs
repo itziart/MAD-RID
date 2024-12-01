@@ -6,8 +6,6 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f; // Speed of movement
-    public Vector3 tileSize = new Vector3(3f, 1.5f, 1f); // Tile size for grid-based movement
-    public Vector3 cellGap = new Vector3(-0.2f, -0.1f, 0); // Cell gap (for finer adjustments)
 
     public Tilemap tilemap; // Reference to the Tilemap
     private Vector3 targetPosition; // Target position for movement
@@ -23,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false; // Flag to ensure no overlapping movement
 
     private Inventory inventory; // Reference to the player's inventory
+    private Animator animator; // Reference to Animator component
+
 
     private void Start()
     {
@@ -47,6 +47,12 @@ public class PlayerMovement : MonoBehaviour
         if (inventory == null)
         {
             Debug.LogError("Inventory component not found on Player!");
+        }
+
+        animator = GetComponentInChildren<Animator>();
+        if (animator == null)
+        {
+            Debug.LogError("Animator not found on Player!");
         }
     }
 
@@ -105,34 +111,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleKeyboardInput()
     {
-        Vector3Int movement = Vector3Int.zero;
+        Vector3 movement = Vector3.zero;
 
-        // Detect movement direction (one tile per key press)
+        // Detect movement direction
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            movement = new Vector3Int(0, 1, 0); // Move up (one tile)
+            movement = new Vector3(0, 1, 0); // Move up
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            movement = new Vector3Int(0, -1, 0); // Move down (one tile)
+            movement = new Vector3(0, -1, 0); // Move down
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            movement = new Vector3Int(-1, 0, 0); // Move left (one tile)
+            movement = new Vector3(-1, 0, 0); // Move left
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            movement = new Vector3Int(1, 0, 0); // Move right (one tile)
+            movement = new Vector3(1, 0, 0); // Move right
         }
 
-        if (movement != Vector3Int.zero)
+        if (movement != Vector3.zero)
         {
             Vector3Int currentTile = tilemap.WorldToCell(targetPosition);
-            Vector3Int newTile = currentTile + movement;
+            Vector3Int newTile = currentTile + Vector3Int.FloorToInt(movement);
 
-            if (IsTileBlockedByNPC(newTile, out Collider2D npcCollider)) //If Tile is blocked by NPC
+            if (IsTileBlockedByNPC(newTile, out Collider2D npcCollider))
             {
-                InteractWithNPC(npcCollider); //Interact with NPC   
+                InteractWithNPC(npcCollider);
                 return;
             }
             if (IsTileAccessible(newTile))
@@ -144,6 +150,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+
 
     private void HandleMouseClick()
     {
@@ -207,49 +215,52 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveToTarget()
     {
-        // Continue moving along the path if the player is in motion
+        if (!isMoving)
+        {
+            animator.SetBool("IsMoving", false);
+        }
         if (isMoving && currentPath.Count > 0)
         {
-            // Get the next tile's world position from the path
             Vector3 nextTilePosition = tilemap.GetCellCenterWorld(currentPath[0]);
-            targetPosition = nextTilePosition;
-            // Smoothly move the player toward the next tile
+
+            // Compute direction for movement
+            Vector3 direction = (nextTilePosition - transform.position).normalized;
+
+            // Update animator parameters
+            animator.SetBool("IsMoving", true);
+            animator.SetFloat("MoveX", direction.x);
+            animator.SetFloat("MoveY", direction.y);
+
+            // Move toward the target
             transform.position = Vector3.MoveTowards(transform.position, nextTilePosition, moveSpeed * Time.deltaTime);
 
-
-            // Check if the player has reached the target tile
             if (Vector3.Distance(transform.position, nextTilePosition) < 0.01f)
             {
-                // Snap the player to the center of the tile to avoid floating-point inaccuracies
                 transform.position = nextTilePosition;
-
-                // Remove the tile from the path as it's been reached
+                targetPosition = nextTilePosition;
                 currentPath.RemoveAt(0);
 
-                // If there are no more tiles in the path
                 if (currentPath.Count == 0)
                 {
                     isMoving = false;
+                    animator.SetBool("IsMoving", false);
 
-                    // Get the current grid position of the player
                     Vector3Int currentTile = tilemap.WorldToCell(transform.position);
 
-                    // Log the player's stop action, showing the current tile position
-                    Debug.Log($"Player stopped at tile {currentTile}. Target NPC: {targetNPC?.name ?? "None"}");
-
-                    // If an NPC is targeted and the player is now adjacent, interact with the NPC
                     if (targetNPC != null && IsAdjacentToNPC(currentTile, targetNPC))
                     {
                         InteractWithNPC(targetNPC);
-                        targetNPC = null; // Clear the NPC target after interaction
+                        targetNPC = null;
                     }
 
-                    // Check for items to pick up on the current tile
                     CheckForItem(currentTile);
                 }
             }
         }
     }
+
+
+
 
     private bool IsTileBlockedByNPC(Vector3Int gridPosition, out Collider2D npcCollider)
     {

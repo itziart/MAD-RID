@@ -1013,6 +1013,10 @@ PrefabInstance:
       value: Do they really all have to stand in the exit?
       objectReference: {fileID: 0}
     - target: {fileID: 8013986036736224446, guid: 185446fa17d47d8488ae3982c3cf781a, type: 3}
+      propertyPath: menuButton
+      value: 
+      objectReference: {fileID: 1072894698}
+    - target: {fileID: 8013986036736224446, guid: 185446fa17d47d8488ae3982c3cf781a, type: 3}
       propertyPath: startDialog
       value: COME ON... JUST LET ME GO GUYS...
       objectReference: {fileID: 0}
@@ -2407,6 +2411,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5808472292191559749, guid: 879297c7f3e3b0a42b32fba2846e56fe, type: 3}
   m_PrefabInstance: {fileID: 1147277200}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1072894698 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5888103409217298436, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
+  m_PrefabInstance: {fileID: 2018243131}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1083637639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3734,11 +3749,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1630813115494788355, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 896
       objectReference: {fileID: 0}
     - target: {fileID: 1630813115494788355, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 340
       objectReference: {fileID: 0}
     - target: {fileID: 4755194002658109234, guid: 20cc17d1a7fd4f449b6023becee43058, type: 3}
       propertyPath: m_Pivot.x

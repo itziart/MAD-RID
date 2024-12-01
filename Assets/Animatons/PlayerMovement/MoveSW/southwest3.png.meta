@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e3c26a3e92276a141afe91691a0343b8
+guid: e7ce6b5f5b16a1f4fadb4b56a8a6d851
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8825758100349463654
-    second: girwalkg00d_0
+      213: 4734085115548739783
+    second: girwalk-4.png (1)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: girwalkg00d_0
+      name: girwalk-4.png (1)_0
       rect:
         serializedVersion: 2
-        x: 452
-        y: 218
-        width: 110
-        height: 343
+        x: 905
+        y: 390
+        width: 217
+        height: 715
       alignment: 9
-      pivot: {x: 0.5347101, y: 0.11}
+      pivot: {x: 0.41, y: 0.11}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 66c2bdc3b346b7a70800000000000000
-      internalID: 8825758100349463654
+      spriteID: 7c82fb09459d2b140800000000000000
+      internalID: 4734085115548739783
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 048c5919829e0604e86e9e088bfef31a
+    spriteID: 9676a4483548dc045ba9b03d397b0261
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      girwalkg00d_0: 8825758100349463654
+      girwalk-4.png (1)_0: 4734085115548739783
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
