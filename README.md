@@ -3,21 +3,24 @@
 ## Description
 Isometric 2D Puzzle Game made using Unity. Development by [banacchini](github.com/banacchini), Design and Art by [🎨itziart](https://www.artstation.com/itziart). The other passengers are blocking your way out! Fulfill their needs by interacting with them and leave the train. Includes:
 
-![Gameplay Video](./Media/gameplay.gif)
+![Gameplay Video](https://s6.gifyu.com/images/bM2yX.gif)
 
 ## [Full Gameplay Video](https://youtu.be/lC5BluAmAKI)
 
 ## Features
-![mainCharacter](./Media/girlwalk.gif)
+![Level Screen](./Media/level_screen.png)
 
-
-### Player-NPC Interactions: ![Drunk Punk](./Media/drunkguy.png)
+### Player-NPC Interactions: 
 Engage with various characters, each with their unique needs and dialogues.
-- **Item Interactions:** Combine items or use them with NPCs to solve puzzles and progress.
-- **Isometric 2D View:** Enjoy a visually appealing isometric perspective that adds depth to the gameplay.
-- **Creative Level Design:** Navigate through thoughtfully designed levels that challenge your problem-solving skills.
 
-## Media
+### Item Interactions:
+Combine items or use them with NPCs to solve puzzles and progress.
+
+### Isometric 2D View:
+Enjoy a visually appealing isometric perspective that adds depth to the gameplay.
+
+### Creative Level Design:
+Navigate through thoughtfully designed levels that challenge your problem-solving skills.
 
 ## Installation
 1. Clone the repository:
@@ -28,7 +31,7 @@ Engage with various characters, each with their unique needs and dialogues.
 3. Build and run the game.
 
 ## Credits
-- **Development:** [Your Name](https://github.com/banacchini)
+- **Development:** [banacchini](https://github.com/banacchini)
 - **Design and Art:** [Itziart](https://github.com/itziart)
 
 ## License
