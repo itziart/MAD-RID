@@ -34,8 +34,6 @@ Navigate through thoughtfully designed levels that challenge your problem-solvin
 - **Development:** [banacchini](https://github.com/banacchini)
 - **Design and Art:** [Itziart](https://github.com/itziart)
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
-For any inquiries, please contact [Your Email](mailto:your.email@example.com).
+For any inquiries, please contact [dominik.czech03@gmail.com](mailto:dominik.czech03@gmail.com).
