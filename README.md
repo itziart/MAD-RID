@@ -1,6 +1,6 @@
 # MAD-RID: Isometric 2D Puzzle Game
 
-![Gameplay Video](./Media/MAD-RID The Game 2024-12-01 21-36-33)
+![Gameplay Video](./Media/gameplay_video.mp4)
 
 ## Description
 Isometric 2D Puzzle Game made using Unity. Development by [banacchini](github.com/banacchini), Design and Art by [🎨itziart](https://www.artstation.com/itziart). The other passengers are blocking your way out! Fulfill their needs by interacting with them and leave the train. Includes:
